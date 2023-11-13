@@ -20,9 +20,10 @@ def test_widget_error_message_outside_context(no_kernel_context):
 
 
 def test_widget_dict(no_kernel_context):
-    kernel_shared = kernel.Kernel()
-    context1 = kernel_context.VirtualKernelContext(id="1", kernel=kernel_shared, session_id="session-1")
-    context2 = kernel_context.VirtualKernelContext(id="2", kernel=kernel_shared, session_id="session-2")
+    kernel1 = kernel.Kernel()
+    kernel2 = kernel.Kernel()
+    context1 = kernel_context.VirtualKernelContext(id="1", kernel=kernel1, session_id="session-1")
+    context2 = kernel_context.VirtualKernelContext(id="2", kernel=kernel2, session_id="session-2")
 
     with context1:
         btn1 = widgets.Button(description="context1")

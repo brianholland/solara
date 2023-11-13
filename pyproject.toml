@@ -81,6 +81,7 @@ dev = [
     "dask[dataframe]; python_version < '3.7'",
     "playwright; python_version > '3.6'",
     "pytest-playwright; python_version > '3.6'",
+    "objgraph",
 ]
 assets = [
     "solara-assets==1.25.0"

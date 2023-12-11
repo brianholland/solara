@@ -9,26 +9,29 @@ title = "Examples"
 
 
 @solara.component
-def Page():
-    # show a gallery of all the examples
-    router = solara.use_router()
-    route_current = router.path_routes[-2]
+def Page(route_external=None):
+    if route_external is not None:
+        route_current = route_external
+    else:
+        # show a gallery of all the examples
+        router = solara.use_router()
+        route_current = router.path_routes[-2]
 
     for route in route_current.children:
         if route.children:
             solara.Markdown(f"## {route.label}\n" + (route.module.__doc__ or ""))
-            with solara.ColumnsResponsive(12, 6, 6, 6, 4):
+            with solara.Row(justify="center", gap="20px", style={"flex-wrap": "wrap", "row-gap": "20px"}):
                 for child in route.children:
                     path = route.path + "/" + child.path
                     image = path + ".png"
-                    image_path = Path(__file__).parent.parent.parent / "public" / "examples" / image
+                    image_path = Path(__file__).parent.parent.parent.parent / "public" / "examples" / image
                     image_url = "/static/public/examples/" + image
                     if not image_path.exists():
                         image_url = "/static/public/logo.svg"
 
                     path = getattr(child.module, "redirect", path)
                     if path:
-                        with solara.Card(child.label, style="height: 100%;"):
+                        with solara.Card(child.label, classes=["component-card"], margin=0):
                             with solara.Link(path):
                                 if not image_path.exists():
                                     with solara.Column(align="center"):

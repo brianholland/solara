@@ -126,7 +126,7 @@ def cli():
     help="Host to listen on. Defaults to the $HOST environment or $SOLARA_HOST when available or localhost when not given.",
 )
 @click.option("--dev/--no-dev", default=None, help="Deprecated: use --auto-restart/-a", hidden=True)
-@click.option("--production", is_flag=True, default=False, help="Run in production mode: https://solara.dev/docs/understanding/solara-server")
+@click.option("--production", is_flag=True, default=False, help="Run in production mode: https://solara.dev/documentation/advanced/understanding/solara-server")
 @click.option("--reload", is_flag=True, default=None, help="Deprecated: use --auto-restart/-a", hidden=True)
 @click.option("-a", "--auto-restart", is_flag=True, default=False, help="Enable auto-restarting of server when the solara server code changes.")
 @click.option("--tracer/--no-tracer", default=False)
@@ -469,7 +469,7 @@ def deploy():
 
     time.sleep(1)
     rprint("Want your app to run instantly on awesomeapp-mystartup-gh.solara.run?")
-    rprint("\tCheck out https://solara.dev/docs/deploying/cloud-hosted")
+    rprint("\tCheck out https://solara.dev/documentation/getting_started/deploying/cloud-hosted")
 
 
 @cli.command()

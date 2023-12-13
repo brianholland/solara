@@ -1,45 +1,12 @@
-# import inspect
-# import urllib.parse
-
-from pathlib import Path
-
 import solara
+from solara.website.components import Gallery
 
 title = "Examples"
 
 
 @solara.component
 def Page(route_external=None):
-    if route_external is not None:
-        route_current = route_external
-    else:
-        # show a gallery of all the examples
-        router = solara.use_router()
-        route_current = router.path_routes[-2]
-
-    for route in route_current.children:
-        if route.children:
-            solara.Markdown(f"## {route.label}\n" + (route.module.__doc__ or ""))
-            with solara.Row(justify="center", gap="20px", style={"flex-wrap": "wrap", "row-gap": "20px"}):
-                for child in route.children:
-                    path = route.path + "/" + child.path
-                    image = path + ".png"
-                    image_path = Path(__file__).parent.parent.parent.parent / "public" / "examples" / image
-                    image_url = "/static/public/examples/" + image
-                    if not image_path.exists():
-                        image_url = "/static/public/logo.svg"
-
-                    path = getattr(child.module, "redirect", path)
-                    if path:
-                        path = path if route_external is None else "examples/" + path
-                        title = solara.Link(path, children=[child.label])
-                        with solara.Card(title, classes=["component-card"], margin=0):
-                            with solara.Link(path):
-                                if not image_path.exists():
-                                    with solara.Column(align="center"):
-                                        solara.Image(image_url, width="120px")
-                                else:
-                                    solara.Image(image_url, width="100%")
+    Gallery(route_external)
 
 
 @solara.component

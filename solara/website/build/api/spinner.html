@@ -1,0 +1,1742 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Solara » API » Spinner</title>
+    <meta charset="utf-8">
+    <meta content="summary_large_image" data-solara-head-key="meta--twitter:card" name="twitter:card"/>
+    <meta content="@solara_dev" data-solara-head-key="meta--twitter:site" name="twitter:site"/>
+    <meta content="https://solara.dev/static/assets/images/logo-small.png" data-solara-head-key="meta--twitter:image" name="twitter:image"/>
+    <meta content="https://solara.dev/api/spinner" data-solara-head-key="meta--og:url" property="og:url"/>
+    <meta content="https://solara.dev/static/assets/images/logo-small.png" data-solara-head-key="meta--og:image" property="og:image"/>
+    <meta content="website" data-solara-head-key="meta--og:type" property="og:type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <link rel="icon" type="image/png" sizes="any" href="/static/assets/favicon.png">
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+
+    
+    
+    <link rel="canonical" href="https://solara.dev/api/spinner">
+    
+    
+
+    <link rel="stylesheet" href="/_solara/cdn/@docsearch/css@3/dist/style.css" />
+    <script src="/_solara/cdn/@docsearch/js@3"></script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KC98NKNL');</script>
+    <!-- End Google Tag Manager -->
+
+    
+
+
+    <style>
+        html,
+body {
+    height: 100vh;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes oscillate {
+    0% {
+        transform: scale(0.8);
+    }
+
+    50% {
+        transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(0.8);
+    }
+}
+
+#sun-spinner1 {
+    animation: spin 6s linear infinite;
+    padding: 10px;
+}
+
+#sun-spinner2 {
+    animation: spin 2s cubic-bezier(.79, .14, .15, .86) infinite;
+    padding: 10px;
+}
+
+#sun-spinner-container {
+    animation: oscillate 2s linear infinite;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-out {
+    0% {
+        transform: translateZ(0) scale(1);
+    }
+
+    100% {
+        transform: translateZ(0) scale(50);
+    }
+}
+
+.solara-transition-enter-active {
+    transition: opacity 0.5s ease;
+    /* animation: bounce-in 0.5s ease; */
+}
+
+.solara-transition-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.solara-transition-leave-active .solara-loader {
+    animation: bounce-out 0.5s ease;
+}
+
+.solara-transition-leave-active #sun-spinner-container {
+    animation: unset;
+}
+
+.solara-transition-leave-active h1 {
+    visibility: hidden;
+}
+
+.solara-transition-enter,
+.solara-transition-leave-to {
+    opacity: 0;
+}
+
+#sun-spinner-container {
+    overflow: hidden;
+}
+
+#loader-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+}
+
+#loader {
+    position: absolute;
+    text-align: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+    </style>
+<style type="text/css">#mc_embed_signup input.mce_inline_error { border-color:#6B0505; } #mc_embed_signup div.mce_inline_error { margin: 0 0 1em 0; padding: 5px 10px; background-color:#6B0505; font-weight: bold; z-index: 1; color:#fff; }</style>
+<style id="vuetify-theme-stylesheet" type="text/css">.v-application a { color: #ff991f; }
+.v-application .primary {
+  background-color: #ff991f !important;
+  border-color: #ff991f !important;
+}
+.v-application .primary--text {
+  color: #ff991f !important;
+  caret-color: #ff991f !important;
+}
+.v-application .primary.lighten-5 {
+  background-color: #ffffae !important;
+  border-color: #ffffae !important;
+}
+.v-application .primary--text.text--lighten-5 {
+  color: #ffffae !important;
+  caret-color: #ffffae !important;
+}
+.v-application .primary.lighten-4 {
+  background-color: #ffff92 !important;
+  border-color: #ffff92 !important;
+}
+.v-application .primary--text.text--lighten-4 {
+  color: #ffff92 !important;
+  caret-color: #ffff92 !important;
+}
+.v-application .primary.lighten-3 {
+  background-color: #ffec76 !important;
+  border-color: #ffec76 !important;
+}
+.v-application .primary--text.text--lighten-3 {
+  color: #ffec76 !important;
+  caret-color: #ffec76 !important;
+}
+.v-application .primary.lighten-2 {
+  background-color: #ffd05a !important;
+  border-color: #ffd05a !important;
+}
+.v-application .primary--text.text--lighten-2 {
+  color: #ffd05a !important;
+  caret-color: #ffd05a !important;
+}
+.v-application .primary.lighten-1 {
+  background-color: #ffb43e !important;
+  border-color: #ffb43e !important;
+}
+.v-application .primary--text.text--lighten-1 {
+  color: #ffb43e !important;
+  caret-color: #ffb43e !important;
+}
+.v-application .primary.darken-1 {
+  background-color: #df7f00 !important;
+  border-color: #df7f00 !important;
+}
+.v-application .primary--text.text--darken-1 {
+  color: #df7f00 !important;
+  caret-color: #df7f00 !important;
+}
+.v-application .primary.darken-2 {
+  background-color: #c06500 !important;
+  border-color: #c06500 !important;
+}
+.v-application .primary--text.text--darken-2 {
+  color: #c06500 !important;
+  caret-color: #c06500 !important;
+}
+.v-application .primary.darken-3 {
+  background-color: #a14d00 !important;
+  border-color: #a14d00 !important;
+}
+.v-application .primary--text.text--darken-3 {
+  color: #a14d00 !important;
+  caret-color: #a14d00 !important;
+}
+.v-application .primary.darken-4 {
+  background-color: #843400 !important;
+  border-color: #843400 !important;
+}
+.v-application .primary--text.text--darken-4 {
+  color: #843400 !important;
+  caret-color: #843400 !important;
+}
+.v-application .secondary {
+  background-color: #424242 !important;
+  border-color: #424242 !important;
+}
+.v-application .secondary--text {
+  color: #424242 !important;
+  caret-color: #424242 !important;
+}
+.v-application .secondary.lighten-5 {
+  background-color: #c1c1c1 !important;
+  border-color: #c1c1c1 !important;
+}
+.v-application .secondary--text.text--lighten-5 {
+  color: #c1c1c1 !important;
+  caret-color: #c1c1c1 !important;
+}
+.v-application .secondary.lighten-4 {
+  background-color: #a6a6a6 !important;
+  border-color: #a6a6a6 !important;
+}
+.v-application .secondary--text.text--lighten-4 {
+  color: #a6a6a6 !important;
+  caret-color: #a6a6a6 !important;
+}
+.v-application .secondary.lighten-3 {
+  background-color: #8b8b8b !important;
+  border-color: #8b8b8b !important;
+}
+.v-application .secondary--text.text--lighten-3 {
+  color: #8b8b8b !important;
+  caret-color: #8b8b8b !important;
+}
+.v-application .secondary.lighten-2 {
+  background-color: #727272 !important;
+  border-color: #727272 !important;
+}
+.v-application .secondary--text.text--lighten-2 {
+  color: #727272 !important;
+  caret-color: #727272 !important;
+}
+.v-application .secondary.lighten-1 {
+  background-color: #595959 !important;
+  border-color: #595959 !important;
+}
+.v-application .secondary--text.text--lighten-1 {
+  color: #595959 !important;
+  caret-color: #595959 !important;
+}
+.v-application .secondary.darken-1 {
+  background-color: #2c2c2c !important;
+  border-color: #2c2c2c !important;
+}
+.v-application .secondary--text.text--darken-1 {
+  color: #2c2c2c !important;
+  caret-color: #2c2c2c !important;
+}
+.v-application .secondary.darken-2 {
+  background-color: #171717 !important;
+  border-color: #171717 !important;
+}
+.v-application .secondary--text.text--darken-2 {
+  color: #171717 !important;
+  caret-color: #171717 !important;
+}
+.v-application .secondary.darken-3 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-3 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .secondary.darken-4 {
+  background-color: #000000 !important;
+  border-color: #000000 !important;
+}
+.v-application .secondary--text.text--darken-4 {
+  color: #000000 !important;
+  caret-color: #000000 !important;
+}
+.v-application .accent {
+  background-color: #82b1ff !important;
+  border-color: #82b1ff !important;
+}
+.v-application .accent--text {
+  color: #82b1ff !important;
+  caret-color: #82b1ff !important;
+}
+.v-application .accent.lighten-5 {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+.v-application .accent--text.text--lighten-5 {
+  color: #ffffff !important;
+  caret-color: #ffffff !important;
+}
+.v-application .accent.lighten-4 {
+  background-color: #f8ffff !important;
+  border-color: #f8ffff !important;
+}
+.v-application .accent--text.text--lighten-4 {
+  color: #f8ffff !important;
+  caret-color: #f8ffff !important;
+}
+.v-application .accent.lighten-3 {
+  background-color: #daffff !important;
+  border-color: #daffff !important;
+}
+.v-application .accent--text.text--lighten-3 {
+  color: #daffff !important;
+  caret-color: #daffff !important;
+}
+.v-application .accent.lighten-2 {
+  background-color: #bce8ff !important;
+  border-color: #bce8ff !important;
+}
+.v-application .accent--text.text--lighten-2 {
+  color: #bce8ff !important;
+  caret-color: #bce8ff !important;
+}
+.v-application .accent.lighten-1 {
+  background-color: #9fccff !important;
+  border-color: #9fccff !important;
+}
+.v-application .accent--text.text--lighten-1 {
+  color: #9fccff !important;
+  caret-color: #9fccff !important;
+}
+.v-application .accent.darken-1 {
+  background-color: #6596e2 !important;
+  border-color: #6596e2 !important;
+}
+.v-application .accent--text.text--darken-1 {
+  color: #6596e2 !important;
+  caret-color: #6596e2 !important;
+}
+.v-application .accent.darken-2 {
+  background-color: #467dc6 !important;
+  border-color: #467dc6 !important;
+}
+.v-application .accent--text.text--darken-2 {
+  color: #467dc6 !important;
+  caret-color: #467dc6 !important;
+}
+.v-application .accent.darken-3 {
+  background-color: #2364aa !important;
+  border-color: #2364aa !important;
+}
+.v-application .accent--text.text--darken-3 {
+  color: #2364aa !important;
+  caret-color: #2364aa !important;
+}
+.v-application .accent.darken-4 {
+  background-color: #004c90 !important;
+  border-color: #004c90 !important;
+}
+.v-application .accent--text.text--darken-4 {
+  color: #004c90 !important;
+  caret-color: #004c90 !important;
+}
+.v-application .error {
+  background-color: #ff5252 !important;
+  border-color: #ff5252 !important;
+}
+.v-application .error--text {
+  color: #ff5252 !important;
+  caret-color: #ff5252 !important;
+}
+.v-application .error.lighten-5 {
+  background-color: #ffe4d5 !important;
+  border-color: #ffe4d5 !important;
+}
+.v-application .error--text.text--lighten-5 {
+  color: #ffe4d5 !important;
+  caret-color: #ffe4d5 !important;
+}
+.v-application .error.lighten-4 {
+  background-color: #ffc6b9 !important;
+  border-color: #ffc6b9 !important;
+}
+.v-application .error--text.text--lighten-4 {
+  color: #ffc6b9 !important;
+  caret-color: #ffc6b9 !important;
+}
+.v-application .error.lighten-3 {
+  background-color: #ffa99e !important;
+  border-color: #ffa99e !important;
+}
+.v-application .error--text.text--lighten-3 {
+  color: #ffa99e !important;
+  caret-color: #ffa99e !important;
+}
+.v-application .error.lighten-2 {
+  background-color: #ff8c84 !important;
+  border-color: #ff8c84 !important;
+}
+.v-application .error--text.text--lighten-2 {
+  color: #ff8c84 !important;
+  caret-color: #ff8c84 !important;
+}
+.v-application .error.lighten-1 {
+  background-color: #ff6f6a !important;
+  border-color: #ff6f6a !important;
+}
+.v-application .error--text.text--lighten-1 {
+  color: #ff6f6a !important;
+  caret-color: #ff6f6a !important;
+}
+.v-application .error.darken-1 {
+  background-color: #df323b !important;
+  border-color: #df323b !important;
+}
+.v-application .error--text.text--darken-1 {
+  color: #df323b !important;
+  caret-color: #df323b !important;
+}
+.v-application .error.darken-2 {
+  background-color: #bf0025 !important;
+  border-color: #bf0025 !important;
+}
+.v-application .error--text.text--darken-2 {
+  color: #bf0025 !important;
+  caret-color: #bf0025 !important;
+}
+.v-application .error.darken-3 {
+  background-color: #9f0010 !important;
+  border-color: #9f0010 !important;
+}
+.v-application .error--text.text--darken-3 {
+  color: #9f0010 !important;
+  caret-color: #9f0010 !important;
+}
+.v-application .error.darken-4 {
+  background-color: #800000 !important;
+  border-color: #800000 !important;
+}
+.v-application .error--text.text--darken-4 {
+  color: #800000 !important;
+  caret-color: #800000 !important;
+}
+.v-application .info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+.v-application .info--text {
+  color: #2196f3 !important;
+  caret-color: #2196f3 !important;
+}
+.v-application .info.lighten-5 {
+  background-color: #d4ffff !important;
+  border-color: #d4ffff !important;
+}
+.v-application .info--text.text--lighten-5 {
+  color: #d4ffff !important;
+  caret-color: #d4ffff !important;
+}
+.v-application .info.lighten-4 {
+  background-color: #b5ffff !important;
+  border-color: #b5ffff !important;
+}
+.v-application .info--text.text--lighten-4 {
+  color: #b5ffff !important;
+  caret-color: #b5ffff !important;
+}
+.v-application .info.lighten-3 {
+  background-color: #95e8ff !important;
+  border-color: #95e8ff !important;
+}
+.v-application .info--text.text--lighten-3 {
+  color: #95e8ff !important;
+  caret-color: #95e8ff !important;
+}
+.v-application .info.lighten-2 {
+  background-color: #75ccff !important;
+  border-color: #75ccff !important;
+}
+.v-application .info--text.text--lighten-2 {
+  color: #75ccff !important;
+  caret-color: #75ccff !important;
+}
+.v-application .info.lighten-1 {
+  background-color: #51b0ff !important;
+  border-color: #51b0ff !important;
+}
+.v-application .info--text.text--lighten-1 {
+  color: #51b0ff !important;
+  caret-color: #51b0ff !important;
+}
+.v-application .info.darken-1 {
+  background-color: #007cd6 !important;
+  border-color: #007cd6 !important;
+}
+.v-application .info--text.text--darken-1 {
+  color: #007cd6 !important;
+  caret-color: #007cd6 !important;
+}
+.v-application .info.darken-2 {
+  background-color: #0064ba !important;
+  border-color: #0064ba !important;
+}
+.v-application .info--text.text--darken-2 {
+  color: #0064ba !important;
+  caret-color: #0064ba !important;
+}
+.v-application .info.darken-3 {
+  background-color: #004d9f !important;
+  border-color: #004d9f !important;
+}
+.v-application .info--text.text--darken-3 {
+  color: #004d9f !important;
+  caret-color: #004d9f !important;
+}
+.v-application .info.darken-4 {
+  background-color: #003784 !important;
+  border-color: #003784 !important;
+}
+.v-application .info--text.text--darken-4 {
+  color: #003784 !important;
+  caret-color: #003784 !important;
+}
+.v-application .success {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+}
+.v-application .success--text {
+  color: #4caf50 !important;
+  caret-color: #4caf50 !important;
+}
+.v-application .success.lighten-5 {
+  background-color: #dcffd6 !important;
+  border-color: #dcffd6 !important;
+}
+.v-application .success--text.text--lighten-5 {
+  color: #dcffd6 !important;
+  caret-color: #dcffd6 !important;
+}
+.v-application .success.lighten-4 {
+  background-color: #beffba !important;
+  border-color: #beffba !important;
+}
+.v-application .success--text.text--lighten-4 {
+  color: #beffba !important;
+  caret-color: #beffba !important;
+}
+.v-application .success.lighten-3 {
+  background-color: #a2ff9e !important;
+  border-color: #a2ff9e !important;
+}
+.v-application .success--text.text--lighten-3 {
+  color: #a2ff9e !important;
+  caret-color: #a2ff9e !important;
+}
+.v-application .success.lighten-2 {
+  background-color: #85e783 !important;
+  border-color: #85e783 !important;
+}
+.v-application .success--text.text--lighten-2 {
+  color: #85e783 !important;
+  caret-color: #85e783 !important;
+}
+.v-application .success.lighten-1 {
+  background-color: #69cb69 !important;
+  border-color: #69cb69 !important;
+}
+.v-application .success--text.text--lighten-1 {
+  color: #69cb69 !important;
+  caret-color: #69cb69 !important;
+}
+.v-application .success.darken-1 {
+  background-color: #2d9437 !important;
+  border-color: #2d9437 !important;
+}
+.v-application .success--text.text--darken-1 {
+  color: #2d9437 !important;
+  caret-color: #2d9437 !important;
+}
+.v-application .success.darken-2 {
+  background-color: #00791e !important;
+  border-color: #00791e !important;
+}
+.v-application .success--text.text--darken-2 {
+  color: #00791e !important;
+  caret-color: #00791e !important;
+}
+.v-application .success.darken-3 {
+  background-color: #006000 !important;
+  border-color: #006000 !important;
+}
+.v-application .success--text.text--darken-3 {
+  color: #006000 !important;
+  caret-color: #006000 !important;
+}
+.v-application .success.darken-4 {
+  background-color: #004700 !important;
+  border-color: #004700 !important;
+}
+.v-application .success--text.text--darken-4 {
+  color: #004700 !important;
+  caret-color: #004700 !important;
+}
+.v-application .warning {
+  background-color: #fb8c00 !important;
+  border-color: #fb8c00 !important;
+}
+.v-application .warning--text {
+  color: #fb8c00 !important;
+  caret-color: #fb8c00 !important;
+}
+.v-application .warning.lighten-5 {
+  background-color: #ffff9e !important;
+  border-color: #ffff9e !important;
+}
+.v-application .warning--text.text--lighten-5 {
+  color: #ffff9e !important;
+  caret-color: #ffff9e !important;
+}
+.v-application .warning.lighten-4 {
+  background-color: #fffb82 !important;
+  border-color: #fffb82 !important;
+}
+.v-application .warning--text.text--lighten-4 {
+  color: #fffb82 !important;
+  caret-color: #fffb82 !important;
+}
+.v-application .warning.lighten-3 {
+  background-color: #ffdf67 !important;
+  border-color: #ffdf67 !important;
+}
+.v-application .warning--text.text--lighten-3 {
+  color: #ffdf67 !important;
+  caret-color: #ffdf67 !important;
+}
+.v-application .warning.lighten-2 {
+  background-color: #ffc24b !important;
+  border-color: #ffc24b !important;
+}
+.v-application .warning--text.text--lighten-2 {
+  color: #ffc24b !important;
+  caret-color: #ffc24b !important;
+}
+.v-application .warning.lighten-1 {
+  background-color: #ffa72d !important;
+  border-color: #ffa72d !important;
+}
+.v-application .warning--text.text--lighten-1 {
+  color: #ffa72d !important;
+  caret-color: #ffa72d !important;
+}
+.v-application .warning.darken-1 {
+  background-color: #db7200 !important;
+  border-color: #db7200 !important;
+}
+.v-application .warning--text.text--darken-1 {
+  color: #db7200 !important;
+  caret-color: #db7200 !important;
+}
+.v-application .warning.darken-2 {
+  background-color: #bb5900 !important;
+  border-color: #bb5900 !important;
+}
+.v-application .warning--text.text--darken-2 {
+  color: #bb5900 !important;
+  caret-color: #bb5900 !important;
+}
+.v-application .warning.darken-3 {
+  background-color: #9d4000 !important;
+  border-color: #9d4000 !important;
+}
+.v-application .warning--text.text--darken-3 {
+  color: #9d4000 !important;
+  caret-color: #9d4000 !important;
+}
+.v-application .warning.darken-4 {
+  background-color: #802700 !important;
+  border-color: #802700 !important;
+}
+.v-application .warning--text.text--darken-4 {
+  color: #802700 !important;
+  caret-color: #802700 !important;
+}</style>
+<style type="text/css">html {
+  /* font sizes in vuetify are in rem units. To get the correct font size, the html tag has to have a font size of 
+     * 16px */
+  font-size: 16px;
+}
+
+.vuetify-styles div.v-application--wrap {
+  /* disable min-height: 100vh set by vuetify */
+  min-height: unset;
+}
+
+.vuetify-styles {
+  /* Rules set on the html element in the vuetify styles are no longer applied after prefixing all selectors, so copy
+     * them here. */
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  /* From _reset.scss */
+  box-sizing: border-box;
+}
+</style>
+<style id="MJX-CHTML-styles">
+mjx-container[jax="CHTML"] {
+  line-height: 0;
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > * {
+  display: table-cell;
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+_::-webkit-full-page-media, _:future, :root mjx-container {
+  will-change: opacity;
+}
+
+mjx-c::before {
+  display: block;
+  width: 0;
+}
+
+.MJX-TEX {
+  font-family: MJXZERO, MJXTEX;
+}
+
+.TEX-B {
+  font-family: MJXZERO, MJXTEX-B;
+}
+
+.TEX-I {
+  font-family: MJXZERO, MJXTEX-I;
+}
+
+.TEX-MI {
+  font-family: MJXZERO, MJXTEX-MI;
+}
+
+.TEX-BI {
+  font-family: MJXZERO, MJXTEX-BI;
+}
+
+.TEX-S1 {
+  font-family: MJXZERO, MJXTEX-S1;
+}
+
+.TEX-S2 {
+  font-family: MJXZERO, MJXTEX-S2;
+}
+
+.TEX-S3 {
+  font-family: MJXZERO, MJXTEX-S3;
+}
+
+.TEX-S4 {
+  font-family: MJXZERO, MJXTEX-S4;
+}
+
+.TEX-A {
+  font-family: MJXZERO, MJXTEX-A;
+}
+
+.TEX-C {
+  font-family: MJXZERO, MJXTEX-C;
+}
+
+.TEX-CB {
+  font-family: MJXZERO, MJXTEX-CB;
+}
+
+.TEX-FR {
+  font-family: MJXZERO, MJXTEX-FR;
+}
+
+.TEX-FRB {
+  font-family: MJXZERO, MJXTEX-FRB;
+}
+
+.TEX-SS {
+  font-family: MJXZERO, MJXTEX-SS;
+}
+
+.TEX-SSB {
+  font-family: MJXZERO, MJXTEX-SSB;
+}
+
+.TEX-SSI {
+  font-family: MJXZERO, MJXTEX-SSI;
+}
+
+.TEX-SC {
+  font-family: MJXZERO, MJXTEX-SC;
+}
+
+.TEX-T {
+  font-family: MJXZERO, MJXTEX-T;
+}
+
+.TEX-V {
+  font-family: MJXZERO, MJXTEX-V;
+}
+
+.TEX-VB {
+  font-family: MJXZERO, MJXTEX-VB;
+}
+
+mjx-stretchy-v mjx-c, mjx-stretchy-h mjx-c {
+  font-family: MJXZERO, MJXTEX-S1, MJXTEX-S4, MJXTEX, MJXTEX-A ! important;
+}
+</style>
+<style id="ipyvue-b1b12c72-3f60-4810-9dfc-08b61eee6552-07277a341bf448dc504db72d8faeee6c2cba5e181407c1b695315e35dbf798b3">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.news {
+    background-color: #ff991f;
+    padding: 10px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+.news a {
+    color: white !important;
+}
+ 
+</style>
+<style id="ipyvue-algolia">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.DocSearch-Button {
+    background-color: rgb(255, 238, 197);
+    color: #182026;
+}
+
+.DocSearch-Button:hover {
+    background-color: rgb(255, 247, 227);
+}
+</style>
+<style id="ipyvue-solara-spinner">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes oscillate {
+    0% {
+        transform: scale(0.8);
+    }
+
+    50% {
+        transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(0.8);
+    }
+}
+
+#sun-spinner1 {
+    animation: spin 6s linear infinite;
+    padding: 10px;
+}
+
+#sun-spinner2 {
+    animation: spin 2s cubic-bezier(.79, .14, .15, .86) infinite;
+    padding: 10px;
+}
+
+.solara-sun-spinner-container {
+    animation: oscillate 2s linear infinite;
+    display: inline-block;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-out {
+    0% {
+        transform: translateZ(0) scale(1);
+    }
+
+    100% {
+        transform: translateZ(0) scale(50);
+    }
+}
+
+.solara-transition-enter-active {
+    transition: opacity 0.5s ease;
+    /* animation: bounce-in 0.5s ease; */
+}
+
+.solara-transition-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.solara-transition-leave-active .solara-loader {
+    animation: bounce-out 0.5s ease;
+}
+
+.solara-transition-leave-active .solara-sun-spinner-container {
+    animation: unset;
+}
+
+.solara-transition-leave-active h1 {
+    visibility: hidden;
+}
+
+.solara-transition-enter,
+.solara-transition-leave-to {
+    opacity: 0;
+}
+
+.solara-sun-spinner-container {
+    overflow: hidden;
+}
+</style>
+<style id="algolia">
+    .DocSearch-Button {
+        background-color: rgb(255, 238, 197);
+        color: #182026;
+    }
+
+    .DocSearch-Button:hover {
+        background-color: rgb(255, 247, 227);
+    }
+    </style>
+
+    
+    <link href="/_solara/cdn/@widgetti/solara-vuetify-app@6.1.0/dist/main.css" rel="stylesheet"></link>
+    
+
+
+    
+    <link rel="stylesheet" href="/_solara/cdn/font-awesome@4.5.0/css/font-awesome.min.css" type="text/css">
+    
+    <link href="/static/highlight.css" rel="stylesheet">
+    <link href="/static/highlight-dark.css" rel="stylesheet">
+    </link>
+    <link href="/static/assets/style.css" rel="stylesheet">
+    </link>
+    
+    <link href="/static/assets/theme-light.css" rel="stylesheet">
+    </link>
+    
+    <link href="/static/assets/custom.css" rel="stylesheet">
+    </link>
+
+    <script id="jupyter-config-data" type="application/json">
+    {
+        "baseUrl": "/",
+        "kernelId": "1234"
+    }
+    </script>
+    <style>
+        html,
+body {
+    height: 100vh;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(359deg);
+    }
+}
+
+@keyframes oscillate {
+    0% {
+        transform: scale(0.8);
+    }
+
+    50% {
+        transform: scale(1.0);
+    }
+
+    100% {
+        transform: scale(0.8);
+    }
+}
+
+#sun-spinner1 {
+    animation: spin 6s linear infinite;
+    padding: 10px;
+}
+
+#sun-spinner2 {
+    animation: spin 2s cubic-bezier(.79, .14, .15, .86) infinite;
+    padding: 10px;
+}
+
+#sun-spinner-container {
+    animation: oscillate 2s linear infinite;
+}
+
+@keyframes bounce-in {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-out {
+    0% {
+        transform: translateZ(0) scale(1);
+    }
+
+    100% {
+        transform: translateZ(0) scale(50);
+    }
+}
+
+.solara-transition-enter-active {
+    transition: opacity 0.5s ease;
+    /* animation: bounce-in 0.5s ease; */
+}
+
+.solara-transition-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.solara-transition-leave-active .solara-loader {
+    animation: bounce-out 0.5s ease;
+}
+
+.solara-transition-leave-active #sun-spinner-container {
+    animation: unset;
+}
+
+.solara-transition-leave-active h1 {
+    visibility: hidden;
+}
+
+.solara-transition-enter,
+.solara-transition-leave-to {
+    opacity: 0;
+}
+
+#sun-spinner-container {
+    overflow: hidden;
+}
+
+#loader-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    z-index: 998;
+    display: flex;
+    align-items: center;
+}
+
+#loader {
+    position: absolute;
+    text-align: center;
+    z-index: 1000;
+    overflow: hidden;
+}
+    </style>
+    
+
+</head>
+<script type="x-template" id="vue-app-template" style="display: none">
+    <v-app :key="forceUpdateTrigger" :class="loadingPage ? 'solara-page-loading' : ''">
+        <v-progress-linear :style="{visibility: (kernelBusyLong && isMounted) ? 'visible' : 'hidden'}" indeterminate
+            absolute></v-progress-linear>
+        <v-alert v-if="needsRefresh || cancelAutoRefresh" type="warning" border="left"
+            style="position: absolute; right: 0px; z-index: 100; left: 0px;">
+            App is disconnected, and may not function properly. Please refresh the page.
+        </v-alert>
+        
+        <transition name="solara-transition" :duration="{ enter: 500, leave: 500 }">
+    <div v-if="loading" id="loader-container">
+        <v-container id="loader" key="loader" class="solara-loader" fluid>
+            <v-row>
+                <v-col>
+                    <div id="sun-spinner-container">
+                        <!-- <img id="sun-spinner" height="100px" src="static/assets/favicon.svg" /> -->
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            xmlns:svgjs="http://svgjs.com/svgjs" width="65" height="65"><svg width="65" height="65"
+                                viewBox="0 0 65 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path id="sun-spinner1" style="transform-origin: center;"
+                                    d="M57.11 30.64L61.47 17.87L48.7 13.51L42.76 1.39999L30.65 7.34999L17.87 2.97999L13.51 15.75L1.40002 21.7L7.35002 33.81L2.99002 46.58L15.76 50.94L21.71 63.06L33.82 57.11L46.59 61.47L50.95 48.7L63.06 42.75L57.11 30.64ZM54.26 34.39L34.39 54.26C33.19 55.46 31.25 55.46 30.05 54.26L10.2 34.4C9.00002 33.2 9.00002 31.26 10.2 30.07L30.06 10.2C31.26 8.99999 33.2 8.99999 34.4 10.2L54.27 30.07C55.47 31.27 55.47 33.21 54.27 34.4L54.26 34.39Z"
+                                    fill="#FFCF64"></path>
+                                <path id="sun-spinner2" style="transform-origin: center;"
+                                    d="M53.62 19.42L51.65 6.07L38.3 8.04L27.46 0L19.42 10.84L6.07 12.82L8.04 26.17L0 37L10.84 45.04L12.81 58.39L26.16 56.42L37 64.46L45.04 53.62L58.39 51.64L56.42 38.29L64.46 27.45L53.62 19.4V19.42ZM52.8 24.06L44.24 50.82C43.72 52.43 42 53.32 40.39 52.81L13.63 44.25C12.02 43.74 11.13 42.01 11.64 40.4L20.21 13.64C20.72 12.03 22.45 11.14 24.06 11.65L50.82 20.21C52.43 20.72 53.32 22.45 52.81 24.06H52.8Z"
+                                    fill="#FF8C3E"></path>
+                            </svg>
+                        </svg>
+
+                    </div>
+                    <h1>{{ loading_text }}</h1>
+
+                </v-col>
+            </v-row>
+        </v-container>
+        <div style="right: 50px; bottom: 10px; position: absolute;">
+            <b>Made with <a href="https://solara.dev">Solara</a></b>
+        </div>
+    </div>
+    <div v-else style="isolation: isolate">
+        <jupyter-widget-mount-point mount-id="solara-main">
+            A widget with mount-id="solara-main" should go here
+        </jupyter-widget-mount-point>
+        <div style="position: absolute; right: 0px; bottom: 0px; padding: 10px;">
+            <b>This website runs on <a href="https://solara.dev">Solara</a></b>
+        </div>
+    </div>
+</transition>
+
+        <v-overlay :value="(connectionStatus != 'connected') & wasConnected">
+            <v-progress-circular indeterminate size="128" style="text-align: center;">Server
+                disconnected.</v-progress-circular>
+        </v-overlay>
+
+        <v-dialog v-model="needsRefresh" width="500">
+            <v-card>
+                <v-card-title class="text-h5 grey lighten-2">Please refresh the page</v-card-title>
+
+                
+                <v-card-text>
+                    Could not restore session. Please refresh.
+                </v-card-text>
+                
+
+                <v-divider></v-divider>
+
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="secondary" text @click="reload()">
+                        Refresh now
+                    </v-btn>
+                    <v-btn color="primary" text @click="setCancelAutoRefresh()">
+                        Cancel
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-menu v-if="debug && solaraDebugMessages && solaraDebugMessages.length" offset-y top
+            :close-on-content-click="false">
+            <template v-slot:activator="{ on }">
+                <v-btn text v-on="on" style="position: fixed; bottom: 8px; right: 8px">
+                    <span style="color: red">{{ solaraDebugMessages.length }}</span>
+                    <v-icon right large color="red">mdi-bug-outline</v-icon>
+                </v-btn>
+            </template>
+            <v-sheet class="pa-2" style="overflow: auto; max-height: 80vh">
+                <div style="display: flex" v-for="message in solaraDebugMessages" :key="message.cell" class="pa-2">
+                    <div style="width: 50px">[{{ message.cell }}]</div>
+                    <div v-if="message.traceback" class="jp-RenderedText jp-OutputArea-output"
+                        data-mime-type="application/vnd.jupyter.stderr">
+                        <pre v-html="message.traceback" class="pa-2"></pre>
+                    </div>
+                    <pre v-else><span :style="message.name === 'stderr' ? 'background-color: var(--jp-rendermime-error-background)' : ''"
+                                class="pa-2"
+                            >{{ message.text }}</span>
+                    </pre>
+                </div>
+                <div class="d-flex justify-end">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon v-bind="attrs" v-on="on" @click="solaraDebugMessages = []">
+                                <v-icon>mdi-trash-can-outline</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Clear messages</span>
+                    </v-tooltip>
+                </div>
+            </v-sheet>
+        </v-menu>
+
+        <v-menu offset-y top :close-on-content-click="false" style="z-index: 100001">
+            <!-- <template v-slot:activator="{ on }">
+                <v-btn text v-on="on" style="position: fixed; top: 8px; right: 8px; z-index: 100000">
+                    <v-icon right large style="opacity: 0.5" :color="connectionStatus != 'connected' ? 'red' : ''">mdi-account</v-icon>
+                </v-btn>
+            </template> -->
+            <v-list>
+                <v-list-item @click="stateReset()" link>
+                    <v-list-item-icon>
+                        <v-icon>mdi-close-box</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>Reset application
+                    </v-list-item-title>
+                </v-list-item>
+                <v-list-item v-if="theme.variant_user_selectable">
+                    <v-btn-toggle v-model="themeVariantIndex" tile group mandatory>
+                        <v-btn value="light" icon>
+                            <v-icon>mdi-white-balance-sunny</v-icon>
+                        </v-btn>
+                        <v-btn>
+                            <v-icon>mdi-weather-night</v-icon>
+                        </v-btn>
+                        <v-btn>
+                            <v-icon>mdi-theme-light-dark</v-icon>
+                        </v-btn>
+                    </v-btn-toggle>
+                </v-list-item>
+
+            </v-list>
+        </v-menu>
+        <!-- <v-menu v-if="debug && outputMessages && outputMessages.length" offset-y top
+            :close-on-content-click="false">
+            <template v-slot:activator="{ on }">
+                <v-btn text v-on="on" style="position: fixed; top: 8px; right: 8px">
+                    <span style="color: #333">{{ outputMessages.length }}</span>
+                    <v-icon right large color="#333">mdi-information-outline</v-icon>
+                </v-btn>
+            </template>
+            <v-sheet class="pa-2" style="overflow: auto; max-height: 80vh">
+                <div style="display: flex" v-for="message in outputMessages" :key="message.cell" class="pa-2">
+                    <div style="width: 50px">[{{ message.cell }}]</div>
+                    <div v-if="message.traceback" class="jp-RenderedText jp-OutputArea-output"
+                        data-mime-type="application/vnd.jupyter.stderr">
+                        <pre v-html="message.traceback" class="pa-2"></pre>
+                    </div>
+                    <pre v-else><span :style="message.name === 'stderr' ? 'background-color: var(--jp-rendermime-error-background)' : ''"
+                                class="pa-2"
+                            >{{ message.text }}</span>
+                    </pre>
+                </div>
+                <div class="d-flex justify-end">
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-btn icon v-bind="attrs" v-on="on" @click="outputMessages = []">
+                                <v-icon>mdi-trash-can-outline</v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Clear messages</span>
+                    </v-tooltip>
+                </div>
+            </v-sheet>
+        </v-menu> -->
+    </v-app>
+</script>
+<body data-base-url="/static/">
+    
+    
+    
+    <div id="app" class="v-application v-application--is-ltr theme--light" data-app="true">
+    
+        <div class="v-application--wrap"><div aria-valuemax="100" aria-valuemin="0" class="v-progress-linear v-progress-linear--absolute theme--light" role="progressbar" style="height: 4px; visibility: hidden;"><div class="v-progress-linear__background primary" style="opacity: 0.3; left: 0%; width: 100%;"></div><div class="v-progress-linear__buffer"></div><div class="v-progress-linear__indeterminate v-progress-linear__indeterminate--active"><div class="v-progress-linear__indeterminate long primary"></div><div class="v-progress-linear__indeterminate short primary"></div></div></div> <!-- --> <div style="isolation: isolate;"><div tag="div"><div class="v-sheet theme--light elevation-0 d-flex" style="flex-direction: column; align-items: stretch; flex-grow: 1;"><span></span><div class="v-sheet theme--light elevation-0 d-flex" style="flex-direction: column; align-items: stretch;"><span style="display: none;">Solara documentation</span><span></span><span></span><span></span><span></span><span></span><span></span><div class="v-sheet theme--light elevation-0 d-flex ma-0" style="flex-direction: column; align-items: stretch; row-gap: 0px;"><span style="display: none;"></span><div class="news" tag="div"><div><a href="https://github.com/widgetti/solara" target="_blank">Star us on github 🤩</a></div></div><header class="v-sheet v-sheet--tile theme--light v-toolbar v-toolbar--flat v-app-bar bg-primary-fade padding-40" data-booted="true" style="margin-top: 0px; transform: translateY(0px); left: 0px; right: 0px;"><div class="v-toolbar__content"><div class="v-toolbar__title d-flex" style="align-items: center;"><button class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default hidden-md-and-up" type="button"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-menu theme--light"></i></span></button><a href="/" tag="a"><div style="height: 100%;"><img class="lm-Widget p-Widget jupyter-widgets widget-image solara-image" src="/static/assets/images/logo.svg"/></div></a></div><div class="spacer"></div><div id="docsearch"><button aria-label="Search" class="DocSearch DocSearch-Button" type="button"><span class="DocSearch-Button-Container"><svg class="DocSearch-Search-Icon" height="20" viewbox="0 0 20 20" width="20"><path d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path></svg><span class="DocSearch-Button-Placeholder">Search</span></span><span class="DocSearch-Button-Keys"><kbd class="DocSearch-Button-Key"><svg class="DocSearch-Control-Key-Icon" height="15" width="15"><path d="M4.505 4.496h2M5.505 5.496v5M8.216 4.496l.055 5.993M10 7.5c.333.333.5.667.5 1v2M12.326 4.5v5.996M8.384 4.496c1.674 0 2.116 0 2.116 1.5s-.442 1.5-2.116 1.5M3.205 9.303c-.09.448-.277 1.21-1.241 1.203C1 10.5.5 9.513.5 8V7c0-1.57.5-2.5 1.464-2.494.964.006 1.134.598 1.24 1.342M12.553 10.5h1.953" fill="none" stroke="currentColor" stroke-linecap="square" stroke-width="1.2"></path></svg></kbd><kbd class="DocSearch-Button-Key">K</kbd></span></button></div><ul class="main-menu menu d-none d-md-flex" tag="ul"><li tag="li"><a href="/" tag="a">Home</a></li><li tag="li"><a href="/showcase" tag="a">Showcase</a></li><li tag="li"><a href="/docs" tag="a">Docs</a></li><li class="active" tag="li"><a href="/api" tag="a">API</a></li><li tag="li"><a href="/examples" tag="a">Examples</a></li></ul><a class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default d-none d-md-flex" href="https://github.com/widgetti/solara" target="_blank"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-github-circle theme--light"></i></span></a><a class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default d-none d-md-flex" href="https://discord.gg/dm4GKNDjXN" target="_blank"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-discord theme--light"></i></span></a><button class="v-btn v-btn--flat v-btn--icon v-btn--round theme--light v-size--default hidden-md-and-up" type="button"><span class="v-btn__content"><i aria-hidden="true" class="v-icon notranslate mdi mdi-menu theme--light"></i></span></button></div></header></div><section class="container container--fluid ma-0 pa-0 fill-height mb-8 solara-content-main"><div class="row justify-start" style="gap: 6rem; flex-wrap: nowrap;"><aside class="col-md-4 col-lg-3 col sidebar bg-grey d-none d-md-block"><div tag="div"><span style="display: none;">Solara » API » Spinner</span></div><ul tag="ul"><a href="/api" tag="a"><li tag="li">API</li></a><li tag="li">Input<i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-left-box theme--light"></i><ul tag="ul"><a href="/api/button" tag="a"><li tag="li">Button</li></a><a href="/api/checkbox" tag="a"><li tag="li">Checkbox</li></a><a href="/api/input" tag="a"><li tag="li">Input</li></a><a href="/api/select" tag="a"><li tag="li">Select</li></a><a href="/api/slider" tag="a"><li tag="li">Slider</li></a><a href="/api/switch" tag="a"><li tag="li">Switch</li></a><a href="/api/togglebuttons" tag="a"><li tag="li">ToggleButtons</li></a><a href="/api/file_browser" tag="a"><li tag="li">File Browser</li></a><a href="/api/file_drop" tag="a"><li tag="li">File Drop</li></a></ul></li><li tag="li">Output<i aria-hidden="true" class="v-icon notranslate mdi mdi-chevron-right-box theme--light"></i><ul tag="ul"><a href="/api/markdown" tag="a"><li tag="li">Markdown</li></a><a href="/api/markdown_editor" tag="a"><li tag="li">Markdown Editor</li></a><a href="/api/html" tag="a"><li tag="li">Html</li></a><a href="/api/image" tag="a"><li tag="li">Image</li></a><a href="/api/sql_code" tag="a"><li tag="li">Sql Code</li></a><a href="/api/file_download" tag="a"><li tag="li">FileDownload</li></a><a href="/api/tooltip" tag="a"><li tag="li">Tooltip</li></a></ul></li><li tag="li">Status<i aria-hidden="true" class="v-icon notranslate mdi mdi-information theme--light"></i><ul tag="ul"><a href="/api/success" tag="a"><li tag="li">Success</li></a><a href="/api/info" tag="a"><li tag="li">Info</li></a><a href="/api/warning" tag="a"><li tag="li">Warning</li></a><a href="/api/error" tag="a"><li tag="li">Error</li></a><a href="/api/spinner" tag="a"><li class="active" tag="li">Spinner</li></a><a href="/api/progress" tag="a"><li tag="li">Progress</li></a></ul></li><li tag="li">Viz<i aria-hidden="true" class="v-icon notranslate mdi mdi-chart-histogram theme--light"></i><ul tag="ul"><a href="/api/altair" tag="a"><li tag="li">FigureAltair</li></a><a href="/api/echarts" tag="a"><li tag="li">Echarts</li></a><a href="/api/matplotlib" tag="a"><li tag="li">Matplotlib</li></a><a href="/api/plotly" tag="a"><li tag="li">Plotly</li></a><a href="/api/plotly_express" tag="a"><li tag="li">Plotly Express</li></a></ul></li><li tag="li">Layout<i aria-hidden="true" class="v-icon notranslate mdi mdi-page-layout-sidebar-left theme--light"></i><ul tag="ul"><a href="/api/app_layout" tag="a"><li tag="li">AppLayout</li></a><a href="/api/app_bar" tag="a"><li tag="li">AppBar</li></a><a href="/api/app_bar_title" tag="a"><li tag="li">AppBarTitle</li></a><a href="/api/card" tag="a"><li tag="li">Card</li></a><a href="/api/card_actions" tag="a"><li tag="li">CardActions</li></a><a href="/api/columns" tag="a"><li tag="li">Columns</li></a><a href="/api/columns_responsive" tag="a"><li tag="li">ColumnsResponsive</li></a><a href="/api/column" tag="a"><li tag="li">Column</li></a><a href="/api/row" tag="a"><li tag="li">Row</li></a><a href="/api/griddraggable" tag="a"><li tag="li">GridDraggable</li></a><a href="/api/gridfixed" tag="a"><li tag="li">GridFixed</li></a><a href="/api/sidebar" tag="a"><li tag="li">Sidebar</li></a><a href="/api/hbox" tag="a"><li tag="li">Hbox</li></a><a href="/api/vbox" tag="a"><li tag="li">Vbox</li></a></ul></li><li tag="li">Data<i aria-hidden="true" class="v-icon notranslate mdi mdi-database theme--light"></i><ul tag="ul"><a href="/api/dataframe" tag="a"><li tag="li">Dataframe</li></a><a href="/api/pivot_table" tag="a"><li tag="li">Pivot Table</li></a></ul></li><li tag="li">Page<i aria-hidden="true" class="v-icon notranslate mdi mdi-file-code theme--light"></i><ul tag="ul"><a href="/api/head" tag="a"><li tag="li">Head</li></a><a href="/api/title" tag="a"><li tag="li">Title</li></a></ul></li><li tag="li">Hooks<i aria-hidden="true" class="v-icon notranslate mdi mdi-hook theme--light"></i><ul tag="ul"><a href="/api/use_cross_filter" tag="a"><li tag="li">use_cross_filter</li></a><a href="/api/use_thread" tag="a"><li tag="li">use_thread</li></a><a href="/api/use_exception" tag="a"><li tag="li">use_exception</li></a><a href="/api/use_effect" tag="a"><li tag="li">use_effect</li></a><a href="/api/use_memo" tag="a"><li tag="li">use_memo</li></a><a href="/api/use_previous" tag="a"><li tag="li">use_previous</li></a><a href="/api/use_reactive" tag="a"><li tag="li">use_reactive</li></a><a href="/api/use_state" tag="a"><li tag="li">use_state</li></a><a href="/api/use_state_or_update" tag="a"><li tag="li">use_state_or_update</li></a></ul></li><li tag="li">Types<i aria-hidden="true" class="v-icon notranslate mdi mdi-fingerprint theme--light"></i><ul tag="ul"><a href="/api/route" tag="a"><li tag="li">Route</li></a></ul></li><li tag="li">Routing<i aria-hidden="true" class="v-icon notranslate mdi mdi-router theme--light"></i><ul tag="ul"><a href="/api/use_route" tag="a"><li tag="li">use_route</li></a><a href="/api/use_router" tag="a"><li tag="li">use_router</li></a><a href="/api/resolve_path" tag="a"><li tag="li">resolve_route</li></a><a href="/api/generate_routes" tag="a"><li tag="li">generate_routes</li></a><a href="/api/generate_routes_directory" tag="a"><li tag="li">generate_routes_directory</li></a><a href="/api/link" tag="a"><li tag="li">Link</li></a></ul></li><li tag="li">Utils<i aria-hidden="true" class="v-icon notranslate mdi mdi-hammer-wrench theme--light"></i><ul tag="ul"><a href="/api/display" tag="a"><li tag="li">display</li></a><a href="/api/memoize" tag="a"><li tag="li">Memoize</li></a><a href="/api/reactive" tag="a"><li tag="li">reactive</li></a><a href="/api/widget" tag="a"><li tag="li">widget</li></a><a href="/api/component_vue" tag="a"><li tag="li">component_vue</li></a></ul></li><li tag="li">Advanced<i aria-hidden="true" class="v-icon notranslate mdi mdi-head-cog-outline theme--light"></i><ul tag="ul"><a href="/api/style" tag="a"><li tag="li">Style</li></a><a href="/api/meta" tag="a"><li tag="li">Meta</li></a></ul></li><li tag="li">Cross filter<i aria-hidden="true" class="v-icon notranslate mdi mdi-filter-variant-remove theme--light"></i><ul tag="ul"><a href="/api/cross_filter_dataframe" tag="a"><li tag="li">CrossFilterDataFrame</li></a><a href="/api/cross_filter_report" tag="a"><li tag="li">Cross Filter Report</li></a><a href="/api/cross_filter_slider" tag="a"><li tag="li">Cross Filter Slider</li></a><a href="/api/cross_filter_select" tag="a"><li tag="li">Cross Filter Select</li></a></ul></li><li tag="li">Enterprise<i aria-hidden="true" class="v-icon notranslate mdi mdi-office-building theme--light"></i><ul tag="ul"><a href="/api/avatar" tag="a"><li tag="li">Avatar</li></a><a href="/api/avatar_menu" tag="a"><li tag="li">AvatarMenu</li></a></ul></li><li tag="li">Lab (experimental)<i aria-hidden="true" class="v-icon notranslate mdi mdi-flask-outline theme--light"></i><ul tag="ul"><a href="/api/chat" tag="a"><li tag="li">Chat Components</li></a><a href="/api/confirmation_dialog" tag="a"><li tag="li">ConfirmationDialog</li></a><a href="/api/menu" tag="a"><li tag="li">Menus</li></a><a href="/api/input_date" tag="a"><li tag="li">InputDate</li></a><a href="/api/tab" tag="a"><li tag="li">Tab</li></a><a href="/api/tabs" tag="a"><li tag="li">Tabs</li></a></ul></li></ul></aside><main class="col-md col pt-12 pl-12 pr-10" style="max-width: 1024px; overflow: auto;"><div class="row solara-page-content-search"><div class="v-sheet theme--light elevation-0 d-flex" style="flex-direction: row; align-items: stretch; flex-grow: 1;"><div class="v-sheet theme--light elevation-0 pa-4" style="flex-direction: row; flex-grow: 1;"><div class="v-sheet theme--light"><div class="solara-markdown rendered_html jp-RenderedHTMLCommon"><h1 id="spinnersolara">SpinnerSolara</h1> <p>Spinner component with the Solara logo to indicate the app is busy.</p> <div class="highlight"><pre><span></span><code><span class="nd">@solara</span><span class="o">.</span><span class="n">component</span>
+<span class="k">def</span> <span class="nf">SpinnerSolara</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">"64px"</span><span class="p">):</span>
+
+    <span class="o">...</span>
+</code></pre></div> <h3 id="basic-example">Basic example</h3> <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">solara</span>
+
+<span class="nd">@solara</span><span class="o">.</span><span class="n">component</span>
+<span class="k">def</span> <span class="nf">Page</span><span class="p">():</span>
+    <span class="n">solara</span><span class="o">.</span><span class="n">SpinnerSolara</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="s2">"100px"</span><span class="p">)</span>
+</pre></div> <div class="solara-markdown-output v-card v-sheet elevation-7"><div tag="div"><div tag="div"><div class="row solara-content-main"><div class="col col-12"><div class="solara-sun-spinner-container"><svg fill="none" height="100px" version="1.1" viewbox="0 0 65 65" width="100px" xmlns="http://www.w3.org/2000/svg" xmlns:svgjs="http://svgjs.com/svgjs" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M57.11 30.64L61.47 17.87L48.7 13.51L42.76 1.39999L30.65 7.34999L17.87 2.97999L13.51 15.75L1.40002 21.7L7.35002 33.81L2.99002 46.58L15.76 50.94L21.71 63.06L33.82 57.11L46.59 61.47L50.95 48.7L63.06 42.75L57.11 30.64ZM54.26 34.39L34.39 54.26C33.19 55.46 31.25 55.46 30.05 54.26L10.2 34.4C9.00002 33.2 9.00002 31.26 10.2 30.07L30.06 10.2C31.26 8.99999 33.2 8.99999 34.4 10.2L54.27 30.07C55.47 31.27 55.47 33.21 54.27 34.4L54.26 34.39Z" fill="#FFCF64" id="sun-spinner1" style="transform-origin: center center;"></path> <path d="M53.62 19.42L51.65 6.07L38.3 8.04L27.46 0L19.42 10.84L6.07 12.82L8.04 26.17L0 37L10.84 45.04L12.81 58.39L26.16 56.42L37 64.46L45.04 53.62L58.39 51.64L56.42 38.29L64.46 27.45L53.62 19.4V19.42ZM52.8 24.06L44.24 50.82C43.72 52.43 42 53.32 40.39 52.81L13.63 44.25C12.02 43.74 11.13 42.01 11.64 40.4L20.21 13.64C20.72 12.03 22.45 11.14 24.06 11.65L50.82 20.21C52.43 20.72 53.32 22.45 52.81 24.06H52.8Z" fill="#FF8C3E" id="sun-spinner2" style="transform-origin: center center;"></path></svg></div></div></div></div></div><div class="v-messages">Live output</div></div> <h2 id="arguments">Arguments</h2> <ul><li><code>size</code>: Size of the spinner.</li></ul></div></div></div></div></div></main></div><aside class="v-navigation-drawer v-navigation-drawer--absolute v-navigation-drawer--close v-navigation-drawer--right theme--light" data-booted="true" style="height: 100vh; top: 0px; transform: translateX(100%); width: 256px;"><div class="v-navigation-drawer__content"><div class="v-list v-sheet v-sheet--tile theme--light v-list--nav" role="list"><div class="v-item-group theme--light v-list-item-group" role="listbox"><a href="/" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Home</div></div></div></a><a href="/showcase" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Showcase</div></div></div></a><a href="/docs" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Docs</div></div></div></a><a href="/api" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">API</div></div></div></a><a href="/examples" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Examples</div></div></div></a></div></div></div><div class="v-navigation-drawer__border"></div></aside><aside class="v-navigation-drawer v-navigation-drawer--absolute v-navigation-drawer--close theme--light" data-booted="true" style="height: 100vh; top: 0px; transform: translateX(-100%); width: 256px;"><div class="v-navigation-drawer__content"><div class="v-list v-sheet v-sheet--tile theme--light v-list--nav" role="list"><div class="v-item-group theme--light v-list-item-group" role="listbox"><a href="/api" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">API</div></div></div></a><a href="/api/altair" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">FigureAltair</div></div></div></a><a href="/api/app_bar" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">AppBar</div></div></div></a><a href="/api/app_bar_title" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">AppBarTitle</div></div></div></a><a href="/api/app_layout" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">AppLayout</div></div></div></a><a href="/api/avatar" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Avatar</div></div></div></a><a href="/api/avatar_menu" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">AvatarMenu</div></div></div></a><a href="/api/button" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Button</div></div></div></a><a href="/api/card" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Card</div></div></div></a><a href="/api/card_actions" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">CardActions</div></div></div></a><a href="/api/chat" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Chat Components</div></div></div></a><a href="/api/checkbox" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Checkbox</div></div></div></a><a href="/api/column" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Column</div></div></div></a><a href="/api/columns" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Columns</div></div></div></a><a href="/api/columns_responsive" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">ColumnsResponsive</div></div></div></a><a href="/api/component_vue" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">component_vue</div></div></div></a><a href="/api/confirmation_dialog" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">ConfirmationDialog</div></div></div></a><a href="/api/cross_filter_dataframe" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">CrossFilterDataFrame</div></div></div></a><a href="/api/cross_filter_report" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Cross Filter Report</div></div></div></a><a href="/api/cross_filter_select" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Cross Filter Select</div></div></div></a><a href="/api/cross_filter_slider" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Cross Filter Slider</div></div></div></a><a href="/api/dataframe" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Dataframe</div></div></div></a><a href="/api/default_layout" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">DefaultLayout</div></div></div></a><a href="/api/display" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">display</div></div></div></a><a href="/api/echarts" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Echarts</div></div></div></a><a href="/api/error" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Error</div></div></div></a><a href="/api/file_browser" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">File Browser</div></div></div></a><a href="/api/file_download" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">FileDownload</div></div></div></a><a href="/api/file_drop" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">File Drop</div></div></div></a><a href="/api/generate_routes" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">generate_routes</div></div></div></a><a href="/api/generate_routes_directory" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">generate_routes_directory</div></div></div></a><a href="/api/griddraggable" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">GridDraggable</div></div></div></a><a href="/api/gridfixed" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">GridFixed</div></div></div></a><a href="/api/hbox" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Hbox</div></div></div></a><a href="/api/head" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Head</div></div></div></a><a href="/api/html" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Html</div></div></div></a><a href="/api/image" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Image</div></div></div></a><a href="/api/info" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Info</div></div></div></a><a href="/api/input" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Input</div></div></div></a><a href="/api/input_date" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">InputDate</div></div></div></a><a href="/api/link" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Link</div></div></div></a><a href="/api/markdown" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Markdown</div></div></div></a><a href="/api/markdown_editor" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Markdown Editor</div></div></div></a><a href="/api/matplotlib" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Matplotlib</div></div></div></a><a href="/api/memoize" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Memoize</div></div></div></a><a href="/api/menu" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Menus</div></div></div></a><a href="/api/meta" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Meta</div></div></div></a><a href="/api/pivot_table" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Pivot Table</div></div></div></a><a href="/api/plotly" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Plotly</div></div></div></a><a href="/api/plotly_express" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Plotly Express</div></div></div></a><a href="/api/progress" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Progress</div></div></div></a><a href="/api/reactive" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">reactive</div></div></div></a><a href="/api/resolve_path" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">resolve_route</div></div></div></a><a href="/api/route" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Route</div></div></div></a><a href="/api/row" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Row</div></div></div></a><a href="/api/select" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Select</div></div></div></a><a href="/api/sidebar" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Sidebar</div></div></div></a><a href="/api/slider" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Slider</div></div></div></a><a href="/api/spinner" tag="a"><div aria-selected="true" class="v-list-item text--primary v-list-item--active v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Spinner</div></div></div></a><a href="/api/sql_code" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Sql Code</div></div></div></a><a href="/api/style" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Style</div></div></div></a><a href="/api/success" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Success</div></div></div></a><a href="/api/switch" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Switch</div></div></div></a><a href="/api/tab" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Tab</div></div></div></a><a href="/api/tabs" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Tabs</div></div></div></a><a href="/api/title" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Title</div></div></div></a><a href="/api/togglebuttons" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">ToggleButtons</div></div></div></a><a href="/api/tooltip" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Tooltip</div></div></div></a><a href="/api/use_cross_filter" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_cross_filter</div></div></div></a><a href="/api/use_effect" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_effect</div></div></div></a><a href="/api/use_exception" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_exception</div></div></div></a><a href="/api/use_memo" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_memo</div></div></div></a><a href="/api/use_previous" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_previous</div></div></div></a><a href="/api/use_reactive" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_reactive</div></div></div></a><a href="/api/use_route" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_route</div></div></div></a><a href="/api/use_router" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_router</div></div></div></a><a href="/api/use_state" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_state</div></div></div></a><a href="/api/use_state_or_update" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_state_or_update</div></div></div></a><a href="/api/use_thread" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">use_thread</div></div></div></a><a href="/api/vbox" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Vbox</div></div></div></a><a href="/api/warning" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">Warning</div></div></div></a><a href="/api/widget" tag="a"><div aria-selected="false" class="v-list-item v-list-item--link theme--light" role="listitem" tabindex="0"><div class="v-list-item__content"><div class="v-list-item__title">widget</div></div></div></a></div></div></div><div class="v-navigation-drawer__border"></div></aside></section></div></div></div> <div style="right: 0px; bottom: 0px; position: absolute; padding: 10px;"><b>This website runs on <a href="https://solara.dev">Solara</a></b></div></div> <div class="v-overlay theme--dark" style="z-index: 5;"><div class="v-overlay__scrim" style="opacity: 0; background-color: rgb(33, 33, 33); border-color: rgb(33, 33, 33);"></div></div> <div class="v-dialog__container" role="dialog"><!-- --></div> <!-- --> <div class="v-menu" style="z-index: 100001;"><!-- --></div></div>
+        
+        <div id="pre-rendered-html-present" style="display: none"></div>
+    </div>
+    
+    
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KC98NKNL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <style id="algolia">
+    .DocSearch-Button {
+        background-color: rgb(255, 238, 197);
+        color: #182026;
+    }
+
+    .DocSearch-Button:hover {
+        background-color: rgb(255, 247, 227);
+    }
+    </style>
+
+    <script>
+        function solaraAlgoliaInit({appId, apiKey, indexName, debug}) {
+            const otherClick = (event) => event.button === 1 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey
+            docsearch({
+                container: '#docsearch',
+                appId: "9KW9L7O5EQ",
+                apiKey: "ef7495102afff1e16d1b7cf6ec2ab2d0",
+                indexName: "solara",
+                debug: debug,
+                hitComponent: ({ hit, children }) => {
+                    // react without the React library
+                    return {
+                        type: 'a',
+                        constructor: undefined,
+                        __v: 1,
+                        props: {
+                            href: hit.url,
+                            children,
+                            onClick: (event) => {
+                                if (otherClick(event)) { return }
+                                event.preventDefault()
+                                let url = hit.url;
+                                if (url.startsWith('https://solara.dev')) {
+                                    url = url.substring(18);
+                                }
+                                solara.router.push(url)
+                            }
+                        }
+                    }
+                },
+
+                navigator: {
+                    navigate({ itemUrl }) {
+                        if (itemUrl.startsWith('https://solara.dev')) {
+                            itemUrl = itemUrl.substring(18);
+                        }
+                        solara.router.push(itemUrl);
+                    },
+                },
+            });
+        }
+        if(document.getElementById('docsearch')) {
+            solaraAlgoliaInit({
+                appId: "9KW9L7O5EQ",
+                apiKey: "ef7495102afff1e16d1b7cf6ec2ab2d0",
+                indexName: "solara",
+                debug: false,
+            });
+        }
+    </script>
+    <!-- MailChimp -->
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
+
+    
+        <link href="/_solara/cdn/@widgetti/solara-vuetify-app@6.1.0/dist/fonts.css" rel="stylesheet" fetchpriority="low"></link>
+        
+        <script src="/_solara/cdn/@widgetti/solara-vuetify-app@6.1.0/dist/solara-vuetify-app8.min.js"></script>
+        
+    
+    
+    <script src="/_solara/cdn/mermaid@9.1.7/dist/mermaid.min.js"></script>
+    
+    <script>
+        solara.rootPath = "";
+        console.log("rootPath", solara.rootPath);
+    </script>
+
+    <script src="/static/assets/custom.js"></script>
+    <script src="/static/assets/theme.js"></script>
+
+    <script src="/_solara/cdn/requirejs@2.3.6/require.js" crossorigin="anonymous">
+    </script>
+    <script src="/static/main-vuetify.js"></script>
+    <script src="/static/ansi.js"></script>
+
+    <script>
+        solara.production = true;
+        const themeVariants = ['light', 'dark', 'auto']
+        solara.preRendered = 37135 > 0
+        var theme = {"loader": "solara", "variant": "light", "variant_user_selectable": true}
+        if (theme.variant_user_selectable) {
+            if (localStorage.getItem('theme.variant')) {
+                theme.variant = JSON.parse(localStorage.getItem('theme.variant'))
+            }
+        }
+        function prefersDarkScheme() {
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        }
+        function inDarkMode() {
+            if (theme.variant == 'auto') {
+                return prefersDarkScheme();
+            }
+            else {
+                return theme.variant == 'dark';
+            }
+        }
+    </script>
+
+    <script>
+        window.solara.browser_platform = false;
+        
+        var debug = true;
+
+        var appComponent = {
+            // if we do prerendering, keep it unmounted, and mount
+            // when loading becomes false
+            el: solara.preRendered ? null : '#app' ,
+            template: '#vue-app-template',
+            created() {
+                const original_$forceUpdate = this.$forceUpdate.bind(this);
+                this.$forceUpdate = (() => {
+                    this.forceUpdateTrigger += 1;
+                    original_$forceUpdate();
+                });
+            },
+            mounted() {
+                document.querySelector('#app').removeAttribute("style");
+                // listen to change in preferred color scheme (e.g if choosing dark in OSX)
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                    this.$vuetify.theme.dark = inDarkMode();
+                });
+            },
+            methods: {
+                stateReset() {
+                    console.log('reset')
+                    msg = { "type": "state_reset", "reason": "user command" }
+                    wsWatchdog.send(JSON.stringify(msg))
+                },
+                setCancelAutoRefresh() {
+                    this.needsRefresh = false;
+                    this.cancelAutoRefresh = true;
+                },
+                reload() {
+                    location.reload();
+                },
+            },
+            computed: {
+                themeVariantIndex: {
+                    get() {
+                        return themeVariants.indexOf(theme.variant)
+                    },
+                    set(value) {
+                        theme.variant = themeVariants[value]
+                        this.$vuetify.theme.dark = inDarkMode()
+                        localStorage.setItem('theme.variant', JSON.stringify(theme.variant))
+                    }
+                }
+            },
+            watch: {
+                kernelBusy: function (value) {
+                    if(this._lastBusyTimer) {
+                        clearTimeout(this._lastBusyTimer)
+                    }
+                    if(value) {
+                        this._lastBusyTimer = setTimeout(() => {
+                            this.kernelBusyLong = value;
+                        }, 300);
+                    } else {
+                        this.kernelBusyLong = value;
+                    }
+                },
+                loading: function (value) {
+                    // if preRendered, the app is not mounted yet
+                    // so we mount it when loading becomes false
+                    if (solara.preRendered && !this.mounted) {
+                        this.isMounted = true;
+                        this.$mount("#app")
+                    } else {
+                        this.isMounted = true;
+                    }
+                },
+                needsRefresh: function (value) {
+                    if (this.needsRefresh && !this.cancelAutoRefresh && !solara.production) {
+                        console.log('value for needRefresh', value);
+                        setTimeout(() => {
+                            console.log('this.autoRefreshCount', this.autoRefreshCount)
+                            this.autoRefreshCount = this.autoRefreshCount - 1;
+                        }, 1000);
+                    }
+                },
+                autoRefreshCount: function (value) {
+                    console.log('value for autoRefreshCount', value);
+                    if (value == 0) {
+                        if (!this.cancelAutoRefresh)
+                            this.reload();
+                    } else if (value > 0) {
+                        setTimeout(() => {
+                            console.log('this.autoRefreshCount!', this.autoRefreshCount)
+                            this.autoRefreshCount = this.autoRefreshCount - 1;
+                        }, 1000);
+                    }
+                }
+            },
+            data() {
+                return {
+                    forceUpdateTrigger: 0,
+                    loading_text: "Loading resources",
+                    loadingPercentage: -1,
+                    loading: true,
+                    title: "No title",
+                    solaraDebugMessages: [],
+                    outputMessages: [],
+                    theme: theme,
+                    debug: debug,
+                    connectionStatus: null,
+                    wasConnected: false,
+                    needsRefresh: false,
+                    cancelAutoRefresh: false,
+                    autoRefreshCount: 3,
+                    kernelBusy: false,
+                    isMounted: false,
+                    loadingPage: false,
+                    _lastBusyTimer: null,
+                    kernelBusyLong: false,
+                    // outputMessages: [{ name: 'stderr', text: 'lala' }],
+                }
+            }
+        };
+        const vue3 = Vue.version.startsWith('3');
+        if(vue3) {
+            var app = Vue.createApp(appComponent).use(vuetifyPlugin)
+                .component("jupyter-widget-mount-point", jupyterWidgetMountPoint)
+                .mount('#app');
+
+        } else {
+            Vue.component('jupyter-widget-mount-point', jupyterWidgetMountPoint);
+            Vue.use(Vuetify);
+            var app = new Vue({
+                vuetify: new Vuetify({
+                    theme: {
+                        dark: inDarkMode(),
+                        themes: vuetifyThemes,
+                    },
+                }),
+                ...appComponent,
+            });
+        }
+        // Loading classic notebook extensions.
+        window.enable_nbextensions = true;
+        requirejs.config({
+            baseUrl: '/static/',
+            waitSeconds: 3000,
+            map: {
+                '*': {
+                        'jupyter-vue': 'nbextensions/jupyter-vue/nodeps',
+            'jupyter-vuetify': 'nbextensions/jupyter-vuetify/nodeps',
+            },
+                }
+            });
+        requirejs([
+            "/static/nbextensions/ipycanvas/extension.js",
+            "/static/nbextensions/jupyter-leaflet/extension.js",
+            "/static/nbextensions/bqplot/extension.js",
+            "/static/nbextensions/jupyterlab-plotly/extension.js",
+            
+        ]);
+        (async function () {
+            await Promise.all([
+                solaraInit('solara-main')
+            ]);
+        })();
+
+    </script>
+
+</html>

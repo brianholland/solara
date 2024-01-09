@@ -64,7 +64,7 @@ If you do define a `Page` component, you are fully responsible for how routing i
 An example route definition could be something like this:
 
 ```python
-import solara as sol
+import solara
 
 routes = [
     # route level == 0
